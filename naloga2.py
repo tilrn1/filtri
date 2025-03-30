@@ -39,13 +39,12 @@ def filtriraj_sobel_smer(slika):
     gradient_y = konvolucija(slika, sobel_y)
     barvna_slika = cv.cvtColor(slika.astype(np.uint8), cv.COLOR_GRAY2BGR)
  
-    barvna_slika[gradient_y > 150] = [0, 255, 0]
-    barvna_slika[gradient_y < 150] = [0, 0, 0]
+    barvna_slika[np.where(gradient_y > 150)] = [0, 255, 0]
     return barvna_slika
     pass
 
 if __name__ == '__main__':   
-    slika = cv.imread('.utils/jagoda.png', cv.IMREAD_GRAYSCALE).astype(np.float32)
+    slika = cv.imread('.utils/wolf.jpg', cv.IMREAD_GRAYSCALE).astype(np.float32)
     if slika is None:
         print("Napaka: Slika ni bila naložena. Preveri pot do slike.")
     else:
