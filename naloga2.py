@@ -45,7 +45,7 @@ def filtriraj_sobel_smer(slika):
     pass
 
 if __name__ == '__main__':   
-    slika = cv.imread('.utils/wolf.jpg', cv.IMREAD_GRAYSCALE).astype(np.float32)
+    slika = cv.imread('.utils/jagoda.png', cv.IMREAD_GRAYSCALE).astype(np.float32)
     if slika is None:
         print("Napaka: Slika ni bila naložena. Preveri pot do slike.")
     else:
