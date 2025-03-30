@@ -39,8 +39,7 @@ def filtriraj_sobel_smer(slika):
     gradient_y = konvolucija(slika, sobel_y)
     barvna_slika = cv.cvtColor(slika.astype(np.uint8), cv.COLOR_GRAY2BGR)
  
-    barvna_slika[gradient_y > 150] = [0, 255, 0]
-    barvna_slika[gradient_y < 150] = [0, 0, 0]
+    barvna_slika[np.where(gradient_y > 150)] = [0, 255, 0]
     return barvna_slika
     pass
 
