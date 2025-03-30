@@ -50,7 +50,7 @@ if __name__ == '__main__':
         print("Napaka: Slika ni bila naložena. Preveri pot do slike.")
     else:
         gaus_slika = filtriraj_z_gaussovim_jedrom(slika, 1) 
-        sobel_vertikalna = filtriraj_sobel_smer(slika)
+        sobel_vertikalna = filtriraj_sobel_smer(gaus_slika)
          
         while True:  
             cv.imshow('Slika', slika.astype(np.uint8))
