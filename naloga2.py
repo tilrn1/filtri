@@ -21,7 +21,7 @@ def konvolucija(slika, jedro):
 
 def filtriraj_z_gaussovim_jedrom(slika,sigma):
     '''Filtrira sliko z Gaussovim jedrom..'''
-    velikost_jedra = (2 * sigma) * 2 + 1
+    velikost_jedra = (int)(2 * sigma) * 2 + 1
     k = (velikost_jedra / 2) - (1/2)
   
     jedro = np.zeros((velikost_jedra, velikost_jedra), dtype=np.float32)
@@ -35,6 +35,13 @@ def filtriraj_z_gaussovim_jedrom(slika,sigma):
 
 def filtriraj_sobel_smer(slika):
     '''Filtrira sliko z Sobelovim jedrom in označi gradiente v orignalni sliki glede na ustrezen pogoj.'''
+    sobel_y = np.array([[-1, 0, 1], [-2, 0, 2], [-1, 0, 1]])
+    gradient_y = konvolucija(slika, sobel_y)
+    barvna_slika = cv.cvtColor(slika.astype(np.uint8), cv.COLOR_GRAY2BGR)
+ 
+    barvna_slika[gradient_y > 150] = [0, 255, 0]
+    barvna_slika[gradient_y < 150] = [0, 0, 0]
+    return barvna_slika
     pass
 
 if __name__ == '__main__':   
@@ -42,12 +49,14 @@ if __name__ == '__main__':
     if slika is None:
         print("Napaka: Slika ni bila naložena. Preveri pot do slike.")
     else:
-        gaus_slika = filtriraj_z_gaussovim_jedrom(slika, 1)  
+        gaus_slika = filtriraj_z_gaussovim_jedrom(slika, 1) 
+        sobel_vertikalna = filtriraj_sobel_smer(slika)
          
         while True:  
             cv.imshow('Slika', slika.astype(np.uint8))
             cv.imshow('Gauss filter', gaus_slika.astype(np.uint8))
-  
+            cv.imshow('Sobel filter', sobel_vertikalna)
+            
             if cv.waitKey(1) & 0xFF == ord('q'):
                 break
   
